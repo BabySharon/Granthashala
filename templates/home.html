@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <title>Home</title>
+</head>
+<body>
+
+<h1>Granthshaala</h1>
+<a href = '/login'>Add Book</a>
+<form action="/search" method = "POST">
+   <input type = text name = searchBook>
+   <input type = submit value ="submit">
+</form>
+   {% if msg %}
+   <strong> {{ msg}} </strong>
+   {% endif %}
+   <br>
+   {% if res %}
+   {% for row in res %} 
+  <!--<a href = "/home/row['bookid']" ><strong> {{ row['bookname']}} </strong></a>-->
+  <a href = "/home/{{row[0]}}"><strong> {{ row[6]}}</strong></a>
+   <strong> {{ row[2]}} </strong></tr>
+   {% endfor %} 
+   {% endif %}
+
+
+  {% if ReqBook %}
+
+
+   <h2>{{ ReqBook[0][6]}}</h2>
+   <h2>{{ ReqBook[0][1]}}</h2>
+   <h2>{{ ReqBook[0][2]}}</h2>
+   <h2>{{ ReqBook[0][3]}}</h2>
+   <h2>{{ ReqBook[0][4]}}</h2>
+   <h2>{{ ReqBook[0][5]}}</h2>
+
+   {% endif %}
+
+
+
+
+
+</body>
+</html>

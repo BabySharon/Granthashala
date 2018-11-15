@@ -3,14 +3,13 @@ from flask import Flask, render_template, request
 import sqlite3
 app = Flask(__name__)
 
+'''First link directs to home page that is the page shown first. The second one is to render the same home page with the details of the book selected by the user.
+That is the details of the book are shown in the same home page with the same styling formats. This is done to avoid creating more html pages for the sake of convinence'''
 @app.route('/home')
 @app.route('/home/<no>')
-'''First link directs to home page that is the page shown first. The second one is to render the same home page with the details of the book selected by the user.
-That is the details of the book are shown in the same home page with the same styling formats. This is done to avoid creating more html pages for the sake of convinence.
-'''
+def home( no = None):#no is a default argument that is its default value is None
 #no of book that is book id or primary key that uniquely identifies a book
 
-def home( no = None):#no is a default argument that is its default value is None
 	conn = sqlite3.connect('book.db')
 	cur = conn.cursor()
 	if no == None:
@@ -26,8 +25,8 @@ def home( no = None):#no is a default argument that is its default value is None
 def signlog():
 	return render_template("signlog.html")
 
+'''This decorator written below adds user details to the database when its for signup else validates the user details in case of login. In both the cases profile page is rendered'''
 @app.route("/addbook", methods =['GET','POST'])
-'''This decorator adds user details to the database when its for signup else validates the user details in case of login. In both the cases profile page is rendered'''
 def addbook( ):
 	conn = sqlite3.connect('book.db')
 	cur = conn.cursor()
@@ -62,9 +61,10 @@ def addbook( ):
 			return render_template("profile.html",msg = msg, login_query = login_query)
 		
 	conn.close()				
-@app.route("/book", methods =['POST','GET'])
+
 '''The function below have definitions to enter a book of the user which is done from the profile page
 '''
+@app.route("/book", methods =['POST','GET'])
 def book():
 	if request.method == "GET":
 		try:
